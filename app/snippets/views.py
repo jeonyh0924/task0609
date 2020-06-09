@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from snippets.models import Snippet
 # from snippets.permissions import IsOwnerOrReadOnly
 from snippets.serializers import SnippetSerializer, UserSerializer
+from rest_framework import filters
 
 
 class SnippetViewSet(viewsets.ModelViewSet):
@@ -21,9 +22,12 @@ class SnippetViewSet(viewsets.ModelViewSet):
         # permissions.IsAuthenticatedOrReadOnly,
         # IsOwnerOrReadOnly,
     ]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', ]
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
 
 
 class UserList(generics.ListAPIView):
