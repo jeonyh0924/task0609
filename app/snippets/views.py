@@ -25,6 +25,7 @@ class SnippetViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter]
     search_fields = ['title', ]
 
+    # pagination_class = CursorSetPagination
 
     # def perform_create(self, serializer):
     #     serializer.save(owner=self.request.user)
