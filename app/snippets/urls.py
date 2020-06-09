@@ -1,3 +1,4 @@
+from django.conf.urls import url
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
@@ -11,4 +12,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('users/', views.UserList.as_view()),
     path('users/<int:pk>/', views.UserDetail.as_view()),
+    url(r'^api-token-auth/', views.obtain_auth_token),
+
 ]
