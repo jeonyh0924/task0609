@@ -12,6 +12,4 @@ urlpatterns = [
     path('', include(router.urls)),
     path('users/', views.UserList.as_view()),
     path('users/<int:pk>/', views.UserDetail.as_view()),
-    url(r'^api-token-auth/', views.obtain_auth_token),
-
 ]
