@@ -20,3 +20,11 @@ class Snippet(models.Model):
 
     class Meta:
         ordering = ['created']
+
+    @staticmethod
+    def start():
+        for i in range(10):
+            Snippet.objects.create(
+                title=f'title is {i} index',
+                code=f'code is {i}'
+            )
