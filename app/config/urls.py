@@ -26,4 +26,6 @@ urlpatterns = [
     path('api/', include(urlpatterns_members)),
     url(r'^api-token-auth/', views.obtain_auth_token),
 
+    path('api/login/', views.obtain_auth_token),
+
 ]
