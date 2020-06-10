@@ -4,18 +4,20 @@ from django.contrib.auth import get_user_model, authenticate
 from rest_framework import generics, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
+from rest_framework.decorators import action
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from members.permissions import IsOwnerOrReadOnly
-from members.serializers import UserSerializer
+from members.models import Card
+from members.permissions import IsOwnerOrReadOnly, CardPermission
+from members.serializers import UserSerializer, CardSerializer
 
 User = get_user_model()
 
 
-class UserModelViewSet(viewsets.ModelViewSet):
+class UserModelViewSetAPI(viewsets.ModelViewSet):
     authentication_classes = [
         TokenAuthentication,
     ]
@@ -23,8 +25,36 @@ class UserModelViewSet(viewsets.ModelViewSet):
         IsAuthenticated,
         IsOwnerOrReadOnly,
     ]
+    ordering = ['-pk', ]
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    # @action(detail=True, methods=['POST', ])
+    # def addCard(self, request, pk=None):
+    #     card = Card.objects.get(pk=pk)
+    #     user = request.user
+    #
+
+
+class CardModelViewSetAPI(viewsets.ModelViewSet):
+    authentication_classes = [
+        TokenAuthentication,
+    ]
+    permission_classes = [
+        IsAuthenticated,
+        CardPermission,
+    ]
+    queryset = Card.objects.all()
+    serializer_class = CardSerializer
+
+    def perform_create(self, serializer):
+        # 토큰인증을 하지 않아도 요청을 보내면 카드를 만들 수 있어요 !
+        user = User.objects.first()
+        serializer.save(
+            # user=self.request.user
+            # user=user
+        )
 
 
 class AuthTokenAPIView(APIView):

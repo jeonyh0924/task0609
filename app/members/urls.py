@@ -5,8 +5,8 @@ from members import views
 from members.views import AuthTokenAPIView
 
 router = DefaultRouter()
-router.register('', views.UserModelViewSet)
-
+router.register('users', views.UserModelViewSetAPI)
+router.register('card', views.CardModelViewSetAPI)
 urlpatterns_members = [
     path('token/', AuthTokenAPIView.as_view()),
 ]

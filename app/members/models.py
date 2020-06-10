@@ -13,4 +13,3 @@ class Card(models.Model):
         null=True,
     )
     no = models.IntegerField(default=0)
-    
