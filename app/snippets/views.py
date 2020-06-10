@@ -33,7 +33,7 @@ class SnippetViewSet(viewsets.ModelViewSet):
         IsAuthenticated,
     ]
 
-    filter_backends = [filters.DjangoFilterBackend,]
+    filter_backends = [filters.DjangoFilterBackend, ]
     filterset_class = SnippetFilter
 
     queryset = Snippet.objects.all()

@@ -7,10 +7,13 @@ User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
-    # snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'created',]
+        fields = ['id',
+                  'username',
+                  'password',
+                  'created',
+                  ]
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):

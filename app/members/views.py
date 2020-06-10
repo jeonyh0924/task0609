@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from members.permissions import IsOwnerOrReadOnly
 from members.serializers import UserSerializer
 
 User = get_user_model()
@@ -20,6 +21,7 @@ class UserModelViewSet(viewsets.ModelViewSet):
     ]
     permission_classes = [
         IsAuthenticated,
+        IsOwnerOrReadOnly,
     ]
     queryset = User.objects.all()
     serializer_class = UserSerializer
